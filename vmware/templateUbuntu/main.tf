@@ -34,6 +34,9 @@ resource "vsphere_virtual_machine" "templateUbuntu" {
   num_cpus = 2
   memory   = 1024
   guest_id = "other3xLinux64Guest"
+  cpu_hot_add_enabled    = true 
+  memory_hot_add_enabled = true
+  scsi_type = data.vsphere_virtual_machine.source_template.scsi_type
   network_interface {
     network_id = data.vsphere_network.network.id
   }
