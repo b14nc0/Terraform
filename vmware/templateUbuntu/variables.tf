@@ -1,23 +1,3 @@
-# Declare Azure variables
-variable "location" {
-}
-
-variable "resourceGroup" {
-  default = "Arc-VMware-Demo"
-}
-
-variable "subscription_id" {
-}
-
-variable "client_id" {
-}
-
-variable "client_secret" {
-}
-
-variable "tenant_id" {
-}
-
 # Declare VMware variables
 variable "vsphere_user" {
 }
