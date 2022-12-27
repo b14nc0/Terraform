@@ -48,17 +48,57 @@ resource "vsphere_virtual_machine" "vm" {
   }
    clone {
     template_uuid = data.vsphere_virtual_machine.source_template.id
-    #customize {
-    #  windows_options {
-    #    computer_name  = "Web1"
-    #    workgroup      = "home"
-    #    admin_password = "__LocalAdmin__"
-    #  }
-    #  network_interface {
-    #    ipv4_address = "192.168.0.46"
-    #    ipv4_netmask = 24
-    #  }
-    #  ipv4_gateway = "192.168.0.1"
-    # }
+    customize {
+      windows_options {
+        computer_name  = var.vsphere_virtual_machine_name
+        admin_password = var.admin_password
+      }
+      network_interface {}
+      dns_server_list = var.vm_dns
+      ipv4_gateway    = var.vm_gateway
+   }
   }
+# provisioner "file" {
+#    source      = "scripts/vars.sh"
+#    destination = "C:/vars.sh"
+
+#   connection {
+#      type     = "winrm"
+#      host     = self.default_ip_address
+#      user     = var.admin_user
+#      password = var.admin_password
+#      https    = false
+#      insecure = true
+#      timeout  = "5m"
+#    }
+#  }
+#  provisioner "file" {
+#    source      = "scripts/install_arc_agent.ps1"
+#    destination = "C:/install_arc_agent.ps1"
+#
+#    connection {
+#      type     = "winrm"
+#      host     = self.default_ip_address
+#      user     = var.admin_user
+#      password = var.admin_password
+#      https    = false
+#      insecure = true
+#      timeout  = "5m"
+#    }
+#  }
+#  provisioner "remote-exec" {
+#    inline = [
+#      "powershell.exe -File C://install_arc_agent.ps1"
+#    ]
+
+#    connection {
+#      type     = "winrm"
+#      host     = self.default_ip_address
+#      user     = var.admin_user
+#      password = var.admin_password
+#      https    = false
+#      insecure = true
+#      timeout  = "5m"
+#    }
+#  }
 }
