@@ -33,8 +33,12 @@ module "eks" {
       desired_capacity = 1
       max_capacity     = 2
       min_capacity     = 1
-      instance_types   = ["t3.medium"]
-
+      #      instance_types   = ["t3.medium"]
+      instance_types   = ["t3.xlarge"]
+      capacity_type    = "SPOT"
+      #      onDemandBaseCapacity : 0
+      #      onDemandPercentageAboveBaseCapacity : 0
+      #      spotAllocationStrategy : "capacity-optimized"
       tags = {
         Terraform   = "true"
         Enviromment = "prueba"
