@@ -21,11 +21,12 @@ module "eks" {
     kube-proxy = {
       resolve_conflict = "OVERWRITE"
     }
-    csi = {
+    aws-ebs-csi-driver = {
       resolve_conflict = "OVERWRITE"
     }
   }
-  manage_aws_auth_configmap = true
+  #create_aws_auth_configmap = true
+  #manage_aws_auth_configmap = true
 
   eks_managed_node_groups = {
     node-group = {
