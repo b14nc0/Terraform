@@ -1,9 +1,13 @@
+ 
+
+
 module "eks" {
   source  = "terraform-aws-modules/eks/aws"
   version = "~> 19.0"
+  
 
-  cluster_name                    = "kubernetes-prueba"
-  cluster_version                 = "1.24"
+  cluster_name                    = var.eks_name
+  cluster_version                 = var.eks_version
   vpc_id                          = module.vpc.vpc_id
   subnet_ids                      = module.vpc.private_subnets
   cluster_endpoint_public_access  = true
@@ -33,22 +37,16 @@ module "eks" {
       desired_capacity = 1
       max_capacity     = 2
       min_capacity     = 1
-      #      instance_types   = ["t3.medium"]
-      instance_types   = ["t3.xlarge"]
-      capacity_type    = "SPOT"
-      #      onDemandBaseCapacity : 0
-      #      onDemandPercentageAboveBaseCapacity : 0
-      #      spotAllocationStrategy : "capacity-optimized"
+      instance_types   = var.eks_instance_type
+      capacity_type = "SPOT"
       tags = {
         Terraform   = "true"
-        Enviromment = "prueba"
+        Enviromment = var.enviroment
       }
 
     }
 
-
   }
 
-
-
 }
+
